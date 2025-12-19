@@ -2,7 +2,7 @@
 
 This repository contains the source code for the paper **"Explainable machine learning for longitudinal dementia status prediction: establishing a leakage-free benchmark"**.
 
-This study establishes a rigorous, leakage-free framework for predicting dementia status using the OASIS-2 longitudinal MRI dataset. It addresses common pitfalls in longitudinal machine learning, specifically target leakage (by excluding CDR scores) and subject leakage (by employing group-aware splitting).
+This study establishes a rigorous, leakage-free framework for predicting dementia status using the OASIS-2 longitudinal dataset. It addresses common pitfalls in longitudinal machine learning, specifically target leakage (by excluding CDR scores) and subject leakage (by employing group-aware splitting).
 
 ## Repository Contents
 
@@ -12,17 +12,27 @@ This study establishes a rigorous, leakage-free framework for predicting dementi
     * **Output**: Generates the `processed_dataset.csv`.
 
 * **`2_SVC_Classifier_OASIS2.ipynb`**:
-    * **Model Pipeline**: Implements the Support Vector Classifier (SVC) with a rigorous nested validation pipeline.
-    * **Optimization**: Includes Random Search for hyperparameter tuning.
-    * **Evaluation**: Outputs performance metrics (ROC-AUC, Precision-Recall) and permutation feature importance.
+    * Implements the Support Vector Classifier (SVC) with a validation pipeline.
 
 * **`3_LGBM_Classifier_OASIS2.ipynb`**:
-    * **Model Pipeline**: Implements the LightGBM gradient boosting classifier.
-    * **Explainability**: Includes SHAP (SHapley Additive exPlanations) analysis to interpret model decisions and feature contributions.
+    * Implements the LightGBM gradient boosting classifier.
 
-## How to Reproduce
+## Data Access & Setup
 
-### 1. Prerequisites
-Ensure you have Python 3.8+ installed. You will need the following libraries:
-```bash
-pip install pandas numpy scikit-learn lightgbm shap matplotlib seaborn imbalanced-learn openpyxl
+Due to licensing restrictions, the OASIS-2 dataset cannot be hosted directly in this repository.
+
+1.  **Download Data**: Request access and download the OASIS-2 longitudinal dataset (Excel format) from [OASIS Brains](https://www.oasis-brains.org/).
+2.  **Create Data Folder**: Create a folder named `data` in the root directory of this repository.
+3.  **Place File**: Move the downloaded Excel file into the `data/` folder and ensure the filename matches the path in `1_Preprocessing_OASIS2.ipynb` (or update the notebook path to match your filename).
+
+## Execution Order
+
+Now, run the notebooks in the following order:
+
+1.  Run **`1_Preprocessing_OASIS2.ipynb`** first. This will generate the clean `processed_dataset.csv` inside the `data/` folder.
+2.  Run **`2_SVC_Classifier_OASIS2.ipynb`** or **`3_LGBM_Classifier_OASIS2.ipynb`** to train and evaluate the models using the processed data.
+
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
